@@ -1,5 +1,6 @@
 const Boom = require('@hapi/boom')
 const adminInfo = require('./adminInfo')
+const i18n = require('../../../locales')
 
 module.exports = [
     //Student Admin Data
@@ -9,8 +10,8 @@ module.exports = [
         config: {
             handler: adminInfo.handler,
             auth: false,
-            description: 'API for adding Admin info. ',
-            notes: 'It does not require Login. Pass Email,Password,Name & Phone.',
+            description: i18n.adminApi.ApiDescription,
+            notes: i18n.adminApi.ApiNotes,
             tags: ['admin', 'api'],
             validate: {
                 payload: adminInfo.UserJoiSchema,

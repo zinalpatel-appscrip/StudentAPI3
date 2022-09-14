@@ -4,6 +4,7 @@ const patchApi = require('./patch')
 const getAllApi = require('./getAll')
 const getSpecificApi = require('./getSpecific')
 const deleteApi= require('./delete')
+const i18n = require('../../../locales')
 
 module.exports = [
 
@@ -14,8 +15,8 @@ module.exports = [
         config: {
 
             handler: postApi.handler,
-            description: 'API for Inserting Student Info After LogIn. ',
-            // notes: '',
+            description: i18n.studentApi.insert.ApiDescription,
+            notes: i18n.studentApi.insert.ApiNotes,
             tags: ['students', 'api'],
             validate: {
                 payload: postApi.StudentJoiSchema,
@@ -38,8 +39,8 @@ module.exports = [
         config: {
 
             handler: patchApi.handler,
-            description: 'API for updating Student Info After LogIn. ',
-            // notes: '',
+            description: i18n.studentApi.update.ApiDescription,
+            notes: i18n.studentApi.update.ApiDescription,
             tags: ['students', 'api'],
             validate: {
                 payload: patchApi.StudentJoiSchema,
@@ -65,8 +66,8 @@ module.exports = [
         config: {
 
             handler: getAllApi.handler,
-            description: 'API for Searching All students ',
-            notes: 'Search can done using either students name,email or phone. Or by passing above &/or below age. All keys will be passed as query params with pagination',
+            description: i18n.studentApi.getAll.ApiDescription,
+            notes: i18n.studentApi.getAll.ApiNotes,
             tags: ['students', 'api'],
             plugins: {
                 'hapi-swagger': {
@@ -87,8 +88,8 @@ module.exports = [
         config: {
 
             handler: getSpecificApi.handler,
-            description: 'API for Searching Specific student',
-            notes: 'Pass student id in request params.',
+            description: i18n.studentApi.getSpecific.ApiDescription,
+            notes: i18n.studentApi.getSpecific.ApiNotes,
             tags: ['students', 'api'],
             plugins: {
                 'hapi-swagger': {
@@ -109,8 +110,8 @@ module.exports = [
         config: {
 
             handler: deleteApi.handler,
-            description: 'API for Deleting student records in bulk.',
-            notes: 'Student Ids to be deleted will be passed as an array in request body.',
+            description: i18n.studentApi.getSpecific.ApiDescription,
+            notes: i18n.studentApi.getSpecific.ApiNotes,
             tags: ['students', 'api'],
             plugins: {
                 'hapi-swagger': {

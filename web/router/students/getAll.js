@@ -2,6 +2,8 @@ const validatePayload = require('../../commnModels/student/studentModel')
 const studentModel = require('../../../models/students')
 const StudentJoiSchema = validatePayload.StudentJoiSchema
 const Joi = require('joi')
+const i18n = require('../../../locales')
+
 
 const headers = Joi.object({
     'authorization': Joi.string().required().description('authentication token of user.'),
@@ -9,15 +11,16 @@ const headers = Joi.object({
 }).unknown()
 
 const query = Joi.object({
-    name: Joi.string().description('If wanted to search student with name. \n\n name=studentName'),
-    email: Joi.string().description('If wanted to search student with email. \n\n email=abc@example.com'),
-    phone: Joi.string().description('If wanted to search student with phone. \n\n phone="1234567890"'),
-    above: Joi.string().description('Students above specified age will be returned. \n\n above=10'),
-    below: Joi.string().description('Students below specified age will be returned. \n\n below=20'),
-    page: Joi.string().description('Page number. \n\n Default limit: 3')
+    name: Joi.string().description(i18n.studentApi.getAll.queryDescription.name),
+    email: Joi.string().description(i18n.studentApi.getAll.queryDescription.email),
+    phone: Joi.string().description(i18n.studentApi.getAll.queryDescription.phone),
+    above: Joi.string().description(i18n.studentApi.getAll.queryDescription.above),
+    below: Joi.string().description(i18n.studentApi.getAll.queryDescription.below),
+    page: Joi.string().description(i18n.studentApi.getAll.queryDescription.page)
 })
 
 const handler = async (req, h) => {
+    console.log(req.i18n.getLocale())
     try {
         // const data = req.params.filter
         const name = req.query.name
@@ -35,7 +38,7 @@ const handler = async (req, h) => {
                 }
             ]).toArray()
 
-            return h.response({ message: 'Data Found!!', data: result }).code(200)
+            return h.response({ message: req.i18n.__('student')['getAll']['200'], data: result }).code(200)
         }
 
         if (above || below) {
@@ -57,7 +60,7 @@ const handler = async (req, h) => {
                 }
             ]).toArray()
 
-            return h.response({ message: 'Data Found!!', data: result }).code(200)
+            return h.response({ message: req.i18n.__('student')['getAll']['200'], data: result }).code(200)
         }
 
     } catch (e) {
@@ -69,7 +72,7 @@ const handler = async (req, h) => {
 
 const GetAllStudentsRes = {
     200: {
-        description: 'This status code will be returned if Details are found.',
+        description: i18n.studentApi.getAll.responseDescription['200'],
         schema: Joi.object({
             message: Joi.string().example('Data Found!!'),
             data: Joi.array().example([
@@ -99,7 +102,7 @@ const GetAllStudentsRes = {
         })
     },
     401: {
-        description: 'If provided token is invalid or not provided.',
+        description: i18n.studentApi.getAll.responseDescription['401'],
         schema: Joi.object({
             statusCode: Joi.number().example(401),
             error: Joi.string().example('Unauthorized'),

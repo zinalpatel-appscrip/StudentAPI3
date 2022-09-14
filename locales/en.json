@@ -1,0 +1,151 @@
+{
+    "admin":  "Data Inserted!",
+    "login": {
+        "200":  "Logged In!!!",
+        "401": "Invalid Credentials!"
+    },
+    "student": {
+        "insert": {
+            "201":  "Student Created!!"
+        },
+        "update": {
+            "200":  "Student Data Updated!!",
+            "404": "requested student not found!!"
+        },
+        "getAll": {
+            "200":  "Data Found!!"
+        },
+        "getSpecific": {
+            "200": "Data Found!!",
+            "404":  "This student is not exsists"
+        },
+        "delete": {
+            "200": "Data deleted successfully",
+            "404": "No data found",
+            "500": "Internal Server Error"
+        }
+    },
+    "logout": {
+        "200":  "Logged Out!!"
+    },
+    "adminApi": {
+        "ApiDescription":"This API is for adding Admin info.",
+        "ApiNotes": "It does not require Login. Pass Email,Password,Name & Phone.",
+        "responseDescription":{
+            "201": "This status code will be returned if Details are successfully inserted!",
+            "400": "Bad request while some data is missing or invalid."
+         },
+         "fieldsDescription": {
+            "email": "Enter a Valid Email",
+            "password": "Password must be between 6 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character",
+            "name": "Name of admin",
+            "phone": "must be a string"
+        }
+         
+    },
+    "loginApi": {
+        "ApiDescription" :"This API is for LogIn.",
+        "ApiNotes": "It will return token if credentials are valid.",
+        "responseDescription": {
+            "200": "This status code will be returned if User Succesfully Logs In",
+            "400": "Bad request while some data is missing or invalid.",
+            "401": "If email or password is incorrect."
+        },
+        "fieldsDescription": {
+            "email": "Enter a Valid Email",
+            "password": "Password must be between 6 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character"
+        }
+    },
+    "logoutApi": {
+        "ApiDescription": "This API is for Logout.",
+        "ApiNotes": "Pass Valid JWT Token in Headers.",
+        "responseDescription": {
+            "200": "This status code will be returned if User Succesfully Logs Out",
+            "401": "If provided token is invalid or not provided."
+        }
+    },
+    "studentApi": {
+        "insert": {
+            "ApiDescription": "API for Inserting Student Info After LogIn. ",
+            "ApiNotes": "This API allows you to add basic Student Info.",
+            "responseDescription": {
+                "201": "This status code will be returned if Details are successfully inserted!",
+                "400": "Bad request while some data is missing or invalid.",
+                "401": "If provided token is invalid or not provided."
+            },
+            "fieldsDescription": {
+                "name": "Enter student name",
+                "email": "Enter a Valid Email",
+                "phone": "Must be a string",
+                "preferedSubject": "can be string or array",
+                "age": "Must be a number",
+                "isPresent": "true if present",
+                "addmission_date":"must be greter than leaving date",
+                "leaving_date":"a valid date",
+                "contact_person_details":"An object having contact as compalsury field. other fields are allowed",
+                "timing":"Add if isPresent is true",
+                "extraInfo": "Extra Info"
+            }
+        },
+       
+        "update": {
+            "ApiDescription":  "API for updating Student Info After LogIn.",
+            "ApiNotes": "This API allows you to update  Student Info.",
+            "responseDescription": {
+                "200": "This status code will be returned if Details are successfully updated!",
+                "404": "It will be returned if No data found with given student id",
+                "401": "If provided token is invalid or not provided."
+            },
+            "paramsDescription": {
+                "id": "Student ID which needs to be updated.."
+            }
+        },
+
+        "getAll": {
+            "ApiDescription": "API for Searching All students.",
+            "ApiNotes": "Search can done using either students name,email or phone. Or by passing above &/or below age. All keys will be passed as query params with pagination",
+            "responseDescription": {
+                "200": "This status code will be returned if Details are found.",
+                "401": "If provided token is invalid or not provided."
+            },
+            "queryDescription": {
+                "name": "If wanted to search student with name. \n\n name=studentName",
+                "email":"If wanted to search student with email. \n\n email=abc@example.com",
+                "phone":"If wanted to search student with phone. \n\n phone='1234567890;",
+                "above":"Students above specified age will be returned. \n\n above=10",
+                "below":"Students below specified age will be returned. \n\n below=20",
+                "page":"Page number. \n\n Default limit: 3"
+            }
+        },
+
+        "getSpecific": {
+            "ApiDescription": "API for Searching Specific student",
+            "ApiNotes": "Pass student id in request params.",
+            "responseDescription": {
+                "200": "This status code will be returned if Details are found.",
+                "404": "This status code will be returned if NO Details are found.",
+                "401": "If provided token is invalid or not provided."
+            },
+            "paramsDescription": {
+                "id": "Student id which is to be searched."
+            }
+        },
+
+        "delete": {
+            "ApiDescription": "API for Deleting student records in bulk.",
+            "ApiNotes": "Student Ids to be deleted will be passed as an array in request body.",
+            "responseDescription": {
+                "200": "Returned If Data Succesfully deleted",
+                "404": "No student found.",
+                "500": "This error occur while internal server error.",
+                "401": "If provided token is invalid or not provided."
+            },
+            "fieldsDescription":{
+                "ids": "Student Ids which requires to be deleted."
+            }
+
+        }
+       
+    }
+
+}

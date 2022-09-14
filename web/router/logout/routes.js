@@ -1,23 +1,24 @@
 const logoutApi = require('./logout')
+const i18n = require('../../../locales')
 
 module.exports = [
     //Logout
     {
         method: 'GET',
         path: '/api/logout',
-        options: {
+        config: {
 
             handler: logoutApi.handler,
-            description: 'API for Logout',
-            notes: 'Pass Valid JWT Token in Headers.',
+            description: i18n.logoutApi.ApiDescription,
+            notes: i18n.logoutApi.ApiNotes,
             tags: ['authentication', 'api'],
             plugins: {
                 'hapi-swagger': {
-                    responses: logoutApi.logoutRes,
-                    validate: {
-                        headers: logoutApi.headers
-                    }
+                    responses: logoutApi.logoutRes
                 }
+            },
+            validate: {
+                headers: logoutApi.headers
             }
         }
     }

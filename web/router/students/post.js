@@ -2,6 +2,7 @@ const validatePayload = require('../../commnModels/student/studentModel')
 const StudentJoiSchema = validatePayload.StudentJoiSchema
 const studentModel = require('../../../models/students')
 const Joi = require('joi')
+const i18n = require('../../../locales')
 
 
 const headers = Joi.object({
@@ -17,7 +18,7 @@ const handler = async (req, h) => {
 
         const result = await studentModel.insert([req.payload])
         // res = result.acknowledged ? "Student Created!!" : 'An error occured'
-        return h.response({ message: 'Student Created!' }).code(201)
+        return h.response({ message: req.i18n.__('student')['insert']['201'] }).code(201)
         
 
     } catch (e) {
@@ -27,13 +28,13 @@ const handler = async (req, h) => {
 
 const StudentInsertRes = {
     201: {
-        description: 'This status code will be returned if Details are successfully inserted!',
+        description: i18n.studentApi.insert.responseDescription['201'],
         schema: Joi.object({
             message: Joi.string().example('Student Created!!')
         })
     },
     400: {
-        description: 'Bad request while some data is missing or invalid.',
+        description: i18n.studentApi.insert.responseDescription['400'],
         schema: Joi.object({
             statusCode: Joi.number().example(400),
             error: Joi.string().example('Bad Request'),
@@ -41,7 +42,7 @@ const StudentInsertRes = {
         })
     },
     401: {
-        description: 'If provided token is invalid or not provided.',
+        description: i18n.studentApi.insert.responseDescription['401'],
         schema: Joi.object({
             statusCode: Joi.number().example(401),
             error: Joi.string().example('Unauthorized'),

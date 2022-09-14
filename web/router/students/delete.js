@@ -1,6 +1,7 @@
 const studentModel = require('../../../models/students')
 const Joi = require('joi')
 const mongodb = require('mongodb')
+const i18n = require('../../../locales')
 
 
 const headers = Joi.object({
@@ -9,7 +10,7 @@ const headers = Joi.object({
 }).unknown()
 
 const payload = Joi.object({
-    ids: Joi.array().description('Student Ids which requires to be deleted.')
+    ids: Joi.array().description(i18n.studentApi.delete.fieldsDescription.ids)
 })
 
 const handler = async (req, h) => {
@@ -19,35 +20,35 @@ const handler = async (req, h) => {
     const result = await studentModel.deleteStudent({ _id: { $in: objectids } })
 
     if (result.deletedCount)
-        return h.response({ message: 'Data deleted successfully' }).code(200)
+        return h.response({ message: req.i18n.__('student')['delete']['200'] }).code(200)
     else if (result.deletedCount === 0)
-        return h.response({ message: 'No data found' }).code(404)
+        return h.response({ message: req.i18n.__('student')['delete']['404'] }).code(404)
     else
-        return h.response({ message: 'Internal Server Error' }).code(500)
+        return h.response({ message: req.i18n.__('student')['delete']['500'] }).code(500)
 }
 
 const deleteStudentsRes = {
     200: {
-        description: 'Returned If Data Succesfully deleted',
+        description: i18n.studentApi.delete.responseDescription['200'],
         schema: Joi.object({
             message: Joi.string().example('Data deleted successfully').required()
         })
     },
     // 204: undefined, // pass-through "No Content" to swagger definition
     404: {
-        description: 'No student found.',
+        description: i18n.studentApi.delete.responseDescription['404'],
         schema: Joi.object({
             message: Joi.string().example('No data found').required()
         })
     },
     500: {
-        description: 'This error occur while internal server error.',
+        description: i18n.studentApi.delete.responseDescription['500'],
         schema: Joi.object({
             message: Joi.string().example('Internal server error').required()
         })
     },
     401: {
-        description: 'If provided token is invalid or not provided.',
+        description: i18n.studentApi.delete.responseDescription['401'],
         schema: Joi.object({
             statusCode: Joi.number().example(401),
             error: Joi.string().example('Unauthorized'),

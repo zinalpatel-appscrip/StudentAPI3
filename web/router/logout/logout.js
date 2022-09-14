@@ -3,6 +3,7 @@ const Boom = require('@hapi/boom')
 const mongodb = require('mongodb')
 const authModel = require('../../../models/auth')
 const Joi = require('joi')
+const i18n = require('../../../locales')
 
 const handler = async (req, res) => {
 
@@ -19,7 +20,7 @@ const handler = async (req, res) => {
                 )
 
                 if (result.deletedCount === 1) {
-                    return res.response({ message: 'Logged Out!!' }).code(200)
+                    return res.response({ message: req.i18n.__('logout')['200'] }).code(200)
                 }
                 else {
                     return Boom.unauthorized('Unauthorized')
@@ -38,24 +39,21 @@ const handler = async (req, res) => {
 }
 
 const logoutRes = {
-    responses: {
         200: {
-            description: 'This status code will be returned if User Succesfully Logs Out',
-                schema: Joi.object({
-                    message: Joi.string().example('Logged Out!!!').required(),
-                })
+            description: i18n.logoutApi.responseDescription['200'],
+            schema: Joi.object({
+                message: Joi.string().example('Logged Out!!!').required(),
+            })
         },
         401: {
-            description: 'If provided token is invalid or not provided.',
-                schema: Joi.object({
-                    statusCode: Joi.number().example(401),
-                    error: Joi.string().example('Unauthorized'),
-                    message: Joi.string().example('Invalid token'),
-                    attributes: Joi.object({ error: Joi.string().example('Invalid token') })
-                })
+            description: i18n.logoutApi.responseDescription['401'],
+            schema: Joi.object({
+                statusCode: Joi.number().example(401),
+                error: Joi.string().example('Unauthorized'),
+                message: Joi.string().example('Invalid token'),
+                attributes: Joi.object({ error: Joi.string().example('Invalid token') })
+            })
         },
-    }
-
 }
 
 const headers = Joi.object({

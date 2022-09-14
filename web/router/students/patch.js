@@ -3,6 +3,7 @@ const studentModel = require('../../../models/students')
 const StudentJoiSchema = validatePayload.StudentJoiSchema
 const mongodb = require('mongodb')
 const Joi = require('joi')
+const i18n = require('../../../locales')
 
 const headers = Joi.object({
     'authorization': Joi.string().required().description('authentication token of user.'),
@@ -10,7 +11,7 @@ const headers = Joi.object({
 }).unknown()
 
 const params = Joi.object({
-    id: Joi.string().description('Student ID which needs to be updated.')
+    id: Joi.string().example('63196f832ee2e759e0f0f9a0').description(i18n.studentApi.update.paramsDescription.id)
 })
 
 const handler = async (req, h) => {
@@ -19,15 +20,13 @@ const handler = async (req, h) => {
 
         //check if resourse exsists
         let data = await studentModel.find({ _id: mongodb.ObjectId(req.params.id) })
-        if (data) {
-      
+        if (data.length) {
             let result = await studentModel.update({ _id: mongodb.ObjectId(req.params.id) }, { $set: req.payload })
-            return h.response({ message: 'Data Updated!' }).code(200)
-            
+            return h.response({ message: req.i18n.__('student')['update']['200'] }).code(200)
         }
         else {
             res = 'requested student not found'
-            return h.response({ message: res }).code(404)
+            return h.response({ message: req.i18n.__('student')['update']['404'] }).code(404)
         }
 
     }
@@ -38,19 +37,19 @@ const handler = async (req, h) => {
 
 const StudentUpadteRes = {
     200: {
-        description: 'This status code will be returned if Details are successfully updated!',
+        description: i18n.studentApi.update.responseDescription['200'],
         schema: Joi.object({
             message: Joi.string().example('Data Updated!!')
         })
     },
     404: {
-        description: 'It will be returned if No data found with given student id',
+        description: i18n.studentApi.update.responseDescription['404'],
         schema: Joi.object({
             message: Joi.string().example('requested student not found')
         })
     },
     401: {
-        description: 'If provided token is invalid or not provided.',
+        description: i18n.studentApi.update.responseDescription['401'],
         schema: Joi.object({
             statusCode: Joi.number().example(401),
             error: Joi.string().example('Unauthorized'),

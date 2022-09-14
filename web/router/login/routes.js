@@ -1,5 +1,7 @@
 const loginApi = require('./login')
 const Boom = require('@hapi/boom')
+const i18n = require('../../../locales')
+
 
 module.exports = [
     {
@@ -8,7 +10,8 @@ module.exports = [
         config: {
             handler: loginApi.handler,
             auth: false,
-            description: 'API for LogIn. ',
+            description: i18n.loginApi.ApiDescription,
+            notes: i18n.loginApi.ApiNotes,
             tags: ['authentication', 'api'],
             plugins: {
                 'hapi-swagger': {

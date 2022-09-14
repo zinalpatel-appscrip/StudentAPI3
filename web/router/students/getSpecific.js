@@ -3,13 +3,16 @@ const studentModel = require('../../../models/students')
 const StudentJoiSchema = validatePayload.StudentJoiSchema
 const Joi = require('joi')
 const mongodb = require('mongodb')
+const i18n = require('../../../locales')
+
+
 const headers = Joi.object({
     'authorization': Joi.string().required().description('authentication token of user.'),
     'lan': Joi.string().required().description('specify language (en-english, de-german, etc.). \n \nDefault value : en')
 }).unknown()
 
 const params = Joi.object({
-    id: Joi.string().description('Student id which is to be searched.')
+    id: Joi.string().description(i18n.studentApi.getSpecific.paramsDescription.id)
 })
 
 const handler = async (req, h) => {
@@ -21,9 +24,9 @@ const handler = async (req, h) => {
         })
 
         if (student.length)
-            return h.response({ message: 'Data Found!!', data: student }).code(200)
+            return h.response({ message: req.i18n.__('student')['getSpecific']['200'], data: student }).code(200)
         else
-            return h.response({ message: 'This student is not exsists' }).code(404)
+            return h.response({ message: req.i18n.__('student')['getSpecific']['404'] }).code(404)
     } catch (e) {
         console.log(e)
     }
@@ -31,7 +34,7 @@ const handler = async (req, h) => {
 
 const getSpecificStudentRes = {
     200: {
-        description: 'This status code will be returned if Details are found.',
+        description: i18n.studentApi.getSpecific.responseDescription['200'],
         schema: Joi.object({
             message: Joi.string().example('Data Found!!'),
             data: Joi.array().example([
@@ -61,13 +64,13 @@ const getSpecificStudentRes = {
         })
     },
     404: {
-        description: 'This status code will be returned if NO Details are found.',
+        description: i18n.studentApi.getSpecific.responseDescription['404'],
         schema: Joi.object({
             message: Joi.string().example("This student is not exsists")
         })
     },
     401: {
-        description: 'If provided token is invalid or not provided.',
+        description: i18n.studentApi.getSpecific.responseDescription['401'],
         schema: Joi.object({
             statusCode: Joi.number().example(401),
             error: Joi.string().example('Unauthorized'),

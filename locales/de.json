@@ -1,0 +1,31 @@
+{
+    "admin":  "Daten eingefügt!",
+    "login": {
+        "200": "Eingeloggt!!!",
+        "401": "Ungültige Zugangsdaten!"
+    },
+    "student": {
+        "insert": {
+            "201":  "Schüler erstellt!!"
+        },
+        "update": {
+            "200":  "Schülerdaten aktualisiert!!",
+            "404":  "gesuchter Student nicht gefunden!!"
+        },
+        "getAll": {
+            "200":  "Daten gefunden!!"
+        },
+        "getSpecific": {
+            "200":  "Daten gefunden!!",
+            "404":  "Dieser Schüler existiert nicht"
+        },
+        "delete": {
+            "200":  "Daten erfolgreich gelöscht",
+            "404":  "Keine Daten gefunden",
+            "500":  "interner Serverfehler"
+        }
+    },
+    "logout": {
+        "200": "Abgemeldet!!"
+    }
+}
