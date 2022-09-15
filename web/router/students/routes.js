@@ -110,8 +110,8 @@ module.exports = [
         config: {
 
             handler: deleteApi.handler,
-            description: i18n.studentApi.getSpecific.ApiDescription,
-            notes: i18n.studentApi.getSpecific.ApiNotes,
+            description: i18n.studentApi.delete.ApiDescription,
+            notes: i18n.studentApi.delete.ApiNotes,
             tags: ['students', 'api'],
             plugins: {
                 'hapi-swagger': {
