@@ -11,7 +11,7 @@ async function main() {
         db = result.db('studentsAPI')
         // return db.collection(collectionName)
         // console.log(db)
-        // console.log(`Database connected -- ${dbName}`)
+        console.log(`Database connected`)
     } catch (e) {
         console.log(e)
     }

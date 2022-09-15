@@ -47,4 +47,4 @@ process.on('unhandledRejection', (err) => {
 })
 
 
-module.exports = { runServer }
+module.exports = { runServer, server }
