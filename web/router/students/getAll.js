@@ -23,11 +23,16 @@ const handler = async (req, h) => {
     console.log(req.i18n.getLocale())
     try {
         // const data = req.params.filter
+        
         const name = req.query.name
         const email = req.query.email
         const phone = req.query.phone
         let above = req.query.above
         let below = req.query.below
+
+        console.log('in  getALL handler')
+        console.log(req.query.name)
+        console.log(req.query)
 
         if (name || email || phone) {
             let result = await studentModel.aggregate([

@@ -12,6 +12,7 @@ async function main() {
         // return db.collection(collectionName)
         // console.log(db)
         console.log(`Database connected`)
+        
     } catch (e) {
         console.log(e)
     }
@@ -21,3 +22,7 @@ async function main() {
 
 exports.dbConnect = () => main()
 exports.get = () => { return db }
+exports.closeConnection = async () => {  
+    console.log('in closeconnection')    
+    await client.close() 
+} 

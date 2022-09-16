@@ -22,15 +22,18 @@ const handler = async (req, h) => {
         let data = await studentModel.find({ _id: mongodb.ObjectId(req.params.id) })
         if (data.length) {
             let result = await studentModel.update({ _id: mongodb.ObjectId(req.params.id) }, { $set: req.payload })
+            console.log(req.payload)
             return h.response({ message: req.i18n.__('student')['update']['200'] }).code(200)
         }
         else {
+            console.log('not found')
             res = 'requested student not found'
             return h.response({ message: req.i18n.__('student')['update']['404'] }).code(404)
         }
 
     }
     catch (e) {
+        console.log('in patch catch')
         console.log(e)
     }
 }

@@ -66,9 +66,16 @@ const studentAdminRes = {
 const handler = async (req, h) => {
     try {
         // i18n.setLocale(req.headers['lan'])
+        // console.log('in API handler')
+        // console.log(req.payload)
+        // console.log(req.payload.password)
     
+
         req.payload.password = md5(req.payload.password)
+        // console.log(req.payload.password)
+
         let result = await adminInfoModel.insert(req.payload)
+
         return h.response({ message: req.i18n.__('admin') }).code(201)
    
     }

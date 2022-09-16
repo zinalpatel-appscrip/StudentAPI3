@@ -30,10 +30,15 @@ const handler = async function name(req, h) {
             return h.response({ message: req.i18n.__('login')['200'], token: token }).code(200)
         }
         else
+        {
             return h.response({ message: req.i18n.__('login')['401'] }).code(401)
+        }
     }
     else
+    {
+        // console.log('email not exsists')
         return h.response({ message: req.i18n.__('login')['401'] }).code(401)
+    }
 }
 
 async function generateToken(user) {

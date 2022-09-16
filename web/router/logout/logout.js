@@ -18,22 +18,28 @@ const handler = async (req, res) => {
                         access_token: decodedToken.payload.access_token
                     }
                 )
-
                 if (result.deletedCount === 1) {
                     return res.response({ message: req.i18n.__('logout')['200'] }).code(200)
                 }
                 else {
+                    // console.log('data not deleted')
                     return Boom.unauthorized('Unauthorized')
                 }
             }
             else
+            {
+                // console.log('didnt get decodedToken')
                 return Boom.unauthorized('Unauthorized')
+
+            }
         }
         else {
             return Boom.unauthorized('Unauthorized')
         }
     } catch (e) {
+        console.log('in logout')
         console.log(e)
+        return res.response({ message: req.i18n.__('logout')['500'] }).code(500)
     }
 
 }
