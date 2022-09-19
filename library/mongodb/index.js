@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 
 const { MongoClient } = require('mongodb')
 const url = process.env.CONNECTION_URL
@@ -8,10 +8,10 @@ let db
 async function main() {
     try {
         let result = await client.connect()
-        db = result.db('studentsAPI')
+        db = result.db(process.env.DATABASE_NAME)
         // return db.collection(collectionName)
         // console.log(db)
-        console.log(`Database connected`)
+        console.log(`Connected with ${process.env.DATABASE_NAME}`)
         
     } catch (e) {
         console.log(e)

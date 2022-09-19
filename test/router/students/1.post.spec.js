@@ -18,6 +18,7 @@ test('Should Create Student --> Success', async () => {
         response: () => {
             const code = (statusCode) => {
                 console.log('from reply')
+                console.log(statusCode)
                 expect(statusCode).toBe(201)
                 // done()
             }

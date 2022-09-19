@@ -23,12 +23,14 @@ const handler = async (req, h) => {
             _id: mongodb.ObjectId(id)
         })
 
+        console.log(student)
         if (student.length)
             return h.response({ message: req.i18n.__('student')['getSpecific']['200'], data: student }).code(200)
         else
             return h.response({ message: req.i18n.__('student')['getSpecific']['404'] }).code(404)
     } catch (e) {
         console.log(e)
+        return h.response({ message: req.i18n.__('student')['getSpecific']['500'] }).code(500)
     }
 }
 

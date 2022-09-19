@@ -1,6 +1,6 @@
 const Hapi = require('@hapi/hapi')
 const db = require('../library/mongodb')
-require('dotenv').config()
+// require('dotenv').config()
 const requireAuth = require('./middleware/requireAuth')
 const config = require('../config')
 const middleware = require('./middleware')

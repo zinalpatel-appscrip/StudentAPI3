@@ -14,17 +14,27 @@ const payload = Joi.object({
 })
 
 const handler = async (req, h) => {
-    const ids = req.payload.ids
+    try{
+        const ids = req.payload.ids
 
-    let objectids = ids.map(id => mongodb.ObjectId(id))
-    const result = await studentModel.deleteStudent({ _id: { $in: objectids } })
+        const data = await studentModel.find({})
+        console.log(data)
+        let objectids = ids.map(id => mongodb.ObjectId(id))
+        const result = await studentModel.deleteStudent({ _id: { $in: objectids } })
 
-    if (result.deletedCount)
-        return h.response({ message: req.i18n.__('student')['delete']['200'] }).code(200)
-    else if (result.deletedCount === 0)
-        return h.response({ message: req.i18n.__('student')['delete']['404'] }).code(404)
-    else
+        if (result.deletedCount)
+            return h.response({ message: req.i18n.__('student')['delete']['200'] }).code(200)
+        else if (result.deletedCount === 0)
+            return h.response({ message: req.i18n.__('student')['delete']['404'] }).code(404)
+        else
+            return h.response({ message: req.i18n.__('student')['delete']['500'] }).code(500)
+    }catch(e)
+    {
+        console.log('in delete catch')
+        console.log(e)
         return h.response({ message: req.i18n.__('student')['delete']['500'] }).code(500)
+    }
+    
 }
 
 const deleteStudentsRes = {

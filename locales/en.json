@@ -10,14 +10,17 @@
         },
         "update": {
             "200":  "Student Data Updated!!",
-            "404": "requested student not found!!"
+            "404": "requested student not found!!",
+            "500": "Internal Server Error"
         },
         "getAll": {
-            "200":  "Data Found!!"
+            "200":  "Data Found!!",
+            "500": "Internal Server Error"
         },
         "getSpecific": {
             "200": "Data Found!!",
-            "404":  "This student is not exsists"
+            "404":  "This student is not exsists",
+            "500": "Internal Server Error"
         },
         "delete": {
             "200": "Data deleted successfully",

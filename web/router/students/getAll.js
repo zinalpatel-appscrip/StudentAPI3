@@ -31,8 +31,8 @@ const handler = async (req, h) => {
         let below = req.query.below
 
         console.log('in  getALL handler')
-        console.log(req.query.name)
-        console.log(req.query)
+        // console.log(req.query.name)
+        // console.log(req.query)
 
         if (name || email || phone) {
             let result = await studentModel.aggregate([
@@ -42,6 +42,8 @@ const handler = async (req, h) => {
                     }
                 }
             ]).toArray()
+
+            console.log(result)
 
             return h.response({ message: req.i18n.__('student')['getAll']['200'], data: result }).code(200)
         }
@@ -69,7 +71,9 @@ const handler = async (req, h) => {
         }
 
     } catch (e) {
+        console.log("in getAll catch")
         console.log(e)
+        return h.response({ message: req.i18n.__('student')['getAll']['500'] }).code(500)
     }
 
 

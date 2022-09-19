@@ -1,4 +1,4 @@
-require('dotenv').config()
+// require('dotenv').config()
 const mongodb = require('mongodb')
 const authModel = require('../../models/auth')
 const config = require('../../config')

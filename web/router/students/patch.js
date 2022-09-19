@@ -19,10 +19,12 @@ const handler = async (req, h) => {
         let res = 'Error'
 
         //check if resourse exsists
+        let Alldata = await studentModel.find({})
+        console.log(Alldata)
         let data = await studentModel.find({ _id: mongodb.ObjectId(req.params.id) })
         if (data.length) {
             let result = await studentModel.update({ _id: mongodb.ObjectId(req.params.id) }, { $set: req.payload })
-            console.log(req.payload)
+            // console.log(req.payload)
             return h.response({ message: req.i18n.__('student')['update']['200'] }).code(200)
         }
         else {
@@ -35,6 +37,7 @@ const handler = async (req, h) => {
     catch (e) {
         console.log('in patch catch')
         console.log(e)
+        return h.response({ message: req.i18n.__('student')['update']['500'] }).code(500)
     }
 }
 

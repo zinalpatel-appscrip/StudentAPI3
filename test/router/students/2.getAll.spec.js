@@ -10,7 +10,7 @@ beforeAll(async () => {
 test('Should Return All Students based on query --> Success', async () => {
     let request = { ...stub.request }
 
-    request.query = {name:"s2"}
+    request.query = {name:"s8"}
 
     let reply = {
         response: () => {
@@ -27,6 +27,30 @@ test('Should Return All Students based on query --> Success', async () => {
         }
     }
 
+    await studentGetAll.handler(request, reply)
+    // done()
+})
+
+test('Should get Internal Server Error --> Success', async () => {
+    let request = { ...stub.request }
+
+    request.query = { name: "s8" }
+
+    let reply = {
+        response: () => {
+            const code = (statusCode) => {
+                console.log('from reply')
+                expect(statusCode).toBe(500)
+                console.log(statusCode)
+
+                // done()
+            }
+            return {
+                code
+            }
+        }
+    }
+    await mongodb.closeConnection()
     await studentGetAll.handler(request, reply)
     // done()
 })

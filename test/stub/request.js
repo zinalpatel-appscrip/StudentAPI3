@@ -1,6 +1,6 @@
 const i18n = require('i18n');
 const i18nConfig = require('../../web/middleware/localization').i18n.options;
-require('dotenv').config()
+// require('dotenv').config()
 
 i18n.configure(i18nConfig);
 
